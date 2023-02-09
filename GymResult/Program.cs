@@ -1,5 +1,8 @@
+
+
 using GymResult;
-using GymResult.Services;
+using GymResult.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +14,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<TraingsDataStore>();
 //builder.Services.AddScoped<ITrainingInfoRepository, TrainingInfoRepository>();
+builder.Services.AddDbContext<TrainingInfoContext>(dbContextOptions =>
+{
+    dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:TraingInfoDb"
+
+
+        ]);
+});
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
