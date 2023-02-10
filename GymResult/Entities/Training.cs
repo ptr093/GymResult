@@ -1,6 +1,7 @@
-﻿using GymResult.Models;
+﻿
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+
 
 namespace GymResult.Entities
 {
@@ -16,7 +17,7 @@ namespace GymResult.Entities
 
 
 
-        public ICollection<ExercicesDto> Exercies { get; set; } = new List<ExercicesDto>();
+        public ICollection<Exercise> Exercies { get; set; } = new List<Exercise>();
         public Training()
         {
 

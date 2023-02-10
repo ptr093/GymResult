@@ -1,77 +1,148 @@
-﻿using GymResult.Models;
+﻿using AutoMapper;
+using GymResult.Entities;
+using GymResult.Models;
+using GymResult.Services;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymResult.Controllers
 {
 
-    [Route("api/traings/{exerceiseId}/exerceises")]
+    [Route("api/traings/{trainingId}/exerceises")]
     [ApiController]
     public class ExercisesController :ControllerBase
     {
-        private readonly TraingsDataStore traingsData;
-        public ExercisesController(TraingsDataStore traingsData)
+
+        public IMapper mapper { get; }
+        private readonly ITrainingInfoRepository trainingInfoRepository;
+        private readonly ILogger<ExercisesController> logger;
+
+        public ExercisesController( IMapper mapper, ITrainingInfoRepository trainingInfoRepository, ILogger<ExercisesController> logger)
         {
 
-            this.traingsData = traingsData ?? throw new ArgumentNullException(nameof(traingsData));
+           
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            this.trainingInfoRepository = trainingInfoRepository ?? throw new ArgumentNullException(nameof(trainingInfoRepository));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
 
         [HttpGet]
-        public ActionResult<IEnumerable<ExercicesDto>> GetExercises(int exerceiseId)
+        public async Task <ActionResult<IEnumerable<ExercicesDto>>> GetExercises(int trainingId)
         {
-            var exercise = traingsData.Traings.FirstOrDefault(c => c.Id == exerceiseId);
+            if (!await trainingInfoRepository.TrainingExistAsync(trainingId))
+            {
+                logger.LogInformation($"Exercise with id {trainingId} wasn't found when accessing trainings.");
+                return NotFound();
+            }
+            var exercises = await trainingInfoRepository.GetExercisesForTraingAsync(trainingId);
 
-            return exercise == null ? NotFound() : Ok(exercise);
+            return Ok(mapper.Map<IEnumerable<ExercicesDto>>(exercises));
         }
 
 
-     
 
-      
+
+
 
         [HttpGet("exercise", Name = "GetExercises")]
-        public ActionResult<IEnumerable<ExercicesDto>> GetExercises(int TraingId, int exerceiseId)
+        public  async Task  <ActionResult<IEnumerable<ExercicesDto>>> GetExercises(int trainingId, int exerceiseId)
         {
-            var traing = traingsData.Traings.FirstOrDefault(c => c.Id == TraingId);
+            if (!await trainingInfoRepository.TrainingExistAsync(trainingId))
+            {
+                logger.LogInformation($"Exercise with id {trainingId} wasn't found when accessing trainings.");
+                return NotFound();
+            }
 
-            if (traing == null) return NotFound();
+            var exercise = await trainingInfoRepository.GetTrainingForExerciseAsync(trainingId,exerceiseId);
 
-            var exercises = traing.Exercies.FirstOrDefault(c => c.Id == exerceiseId);
+            if (exercise == null)
+            {
+                logger.LogInformation($"Exercise with id {exerceiseId} wasn't found in trainings with id {trainingId}");
+                return NotFound();
+            }
 
-            if (exercises == null) return NotFound();
 
-            return Ok(exercises);
+            return Ok(mapper.Map<ExercicesDto>(exercise));
         }
 
 
         [HttpPost]
-        public ActionResult<IEnumerable<ExercicesDto>> CreatePointOfIntrest(int TraingId, ExerciceCreationDto exersiseCreation)
+        public async Task <ActionResult<IEnumerable<ExercicesDto>>> CreatePointOfIntrest(int trainingId, ExerciceCreationDto exersiseCreation)
         {
-            var training = traingsData.Traings.FirstOrDefault(c => c.Id == TraingId);
-
-            if (training == null)
+            if (!await trainingInfoRepository.TrainingExistAsync(trainingId))
             {
-                //_logger.LogInformation($"City with id {cityId} wasn't found when accessing points of intrest.");
-
+                logger.LogInformation($"Training with id {trainingId} wasn't found");
                 return NotFound();
-
             }
 
-            var maxExerciseId= training.Exercies.Max(s => s.Id);
 
-            var finalExerciseId = new ExercicesDto()
+
+            var finalExercise = mapper.Map<Entities.Exercise>(exersiseCreation);
+
+            await trainingInfoRepository.AddExerciseForTrainingAsync(trainingId, finalExercise);
+            await trainingInfoRepository.SaveChangesAsync();
+            var createExcersise = mapper.Map<Models.ExercicesDto>(finalExercise);
+
+            return CreatedAtRoute("GetPointOfIntrest",
+                new
+                {
+                    TrainingId = trainingId,
+                    ExerciseId = createExcersise.Id
+
+                },
+                createExcersise);
+        }
+
+
+        [HttpPatch("{exerceiseId}")]
+        public async Task<ActionResult> UpdateExercise(int trainingId,int exerceiseId,JsonPatchDocument<ExerciceCreationDto> patchDocument)
+        {
+            if (!await trainingInfoRepository.TrainingExistAsync(trainingId))
             {
-                Id = maxExerciseId + 1,
-                Category = exersiseCreation.Category,
-                Weight= exersiseCreation.Weight,
-                Series= exersiseCreation.Series
-            };
-            training.Exercies.Add(finalExerciseId);
-            return CreatedAtRoute("GetExercises", new
+                logger.LogInformation($"Exercise with id {trainingId} wasn't found when accessing trainings.");
+                return NotFound();
+            }
+
+            var exercise = await trainingInfoRepository.GetTrainingForExerciseAsync(trainingId, exerceiseId);
+
+            if (exercise == null)
             {
-                TraingId = TraingId,
-                exerciseId = finalExerciseId.Id
-            }, finalExerciseId);
+                logger.LogInformation($"Exercise with id {exerceiseId} wasn't found in trainings with id {trainingId}");
+                return NotFound();
+            }
+
+            var exerciseToPatch = mapper.Map<ExerciceCreationDto>(exercise);
+
+            patchDocument.ApplyTo(exerciseToPatch,ModelState);
+
+         
+
+            mapper.Map(exerciseToPatch, exercise);
+            await trainingInfoRepository.SaveChangesAsync();
+            return NoContent();
+        }
+        [HttpDelete]
+        public async Task<ActionResult> DeleteExercise(int trainingId, int exerceiseId)
+        {
+            if (!await trainingInfoRepository.TrainingExistAsync(trainingId))
+            {
+                logger.LogInformation($"Exercise with id {trainingId} wasn't found when accessing trainings.");
+                return NotFound();
+            }
+
+            var exercise = await trainingInfoRepository.GetTrainingForExerciseAsync(trainingId, exerceiseId);
+
+            if (exercise == null)
+            {
+                logger.LogInformation($"Exercise with id {exerceiseId} wasn't found in trainings with id {trainingId}");
+                return NotFound();
+            }
+
+            trainingInfoRepository.DeleteExercise(exercise);
+            await trainingInfoRepository.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 

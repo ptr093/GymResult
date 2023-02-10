@@ -1,6 +1,6 @@
 ﻿namespace GymResult.Models
 {
-    public class TrainingDto
+    public class TraingWithoutExercisesDto
     {
         public int Id { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
@@ -10,7 +10,6 @@
 
 
 
-        public ICollection<ExercicesDto> Exercies { get; set; } = new List<ExercicesDto>();
-
+       
     }
 }
