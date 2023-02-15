@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="card-header">
+      {{pageTitle}}
+    </div>
+  
+   
+  
+      <div class="table-responsive">
+        <table class="table mb-0"
+               *ngIf="Workouts && Workouts.length">
+          <thead>
+            <tr>
+              <!-- <th>
+                <button class="btn btn-outline-primary btn-sm"
+                        (click)="toggleImage()">
+                  {{showImage ? "Hide" : "Show"}} Image
+                </button>
+              </th> -->
+              <th>Id</th>
+              <th>Lokalizacja</th>
+              <th>Data</th>
+              <th>Opis</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let workout of Workouts">
+             
+               
+              <td>{{ workout.id }}</td>
+              <td>{{ workout.location }}</td>
+              <td>{{ workout.date | date:' dd MM yyyy ' }}</td>
+              <td>{{ workout.description }}</td>
+              <td>
+                <button class="btn btn-outline-primary btn-sm"
+                        [routerLink]="['/workout', workout.id, 'workoutDetails']">
+                  Szczegóły
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+    </div>
+  
+  
+  
+  <div *ngIf="errorMessage"
+       class="alert alert-danger">
+    Error: {{ errorMessage }}
+  </div>

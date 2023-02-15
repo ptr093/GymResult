@@ -68,7 +68,7 @@ namespace GymResult.Controllers
 
 
         [HttpPost]
-        public async Task <ActionResult<IEnumerable<ExercicesDto>>> CreatePointOfIntrest(int trainingId, ExerciceCreationDto exersiseCreation)
+        public async Task<ActionResult<IEnumerable<ExercicesDto>>> CreatePointOfIntrest(int trainingId, ExerciceCreationDto exersiseCreation)
         {
             if (!await trainingInfoRepository.TrainingExistAsync(trainingId))
             {
@@ -84,18 +84,10 @@ namespace GymResult.Controllers
             await trainingInfoRepository.SaveChangesAsync();
             var createExcersise = mapper.Map<Models.ExercicesDto>(finalExercise);
 
-            return CreatedAtRoute("GetPointOfIntrest",
-                new
-                {
-                    TrainingId = trainingId,
-                    ExerciseId = createExcersise.Id
-
-                },
-                createExcersise);
+            return Ok(createExcersise);
         }
 
-
-        [HttpPatch("{exerceiseId}")]
+            [HttpPatch("{exerceiseId}")]
         public async Task<ActionResult> UpdateExercise(int trainingId,int exerceiseId,JsonPatchDocument<ExerciceCreationDto> patchDocument)
         {
             if (!await trainingInfoRepository.TrainingExistAsync(trainingId))
@@ -111,6 +103,9 @@ namespace GymResult.Controllers
                 logger.LogInformation($"Exercise with id {exerceiseId} wasn't found in trainings with id {trainingId}");
                 return NotFound();
             }
+
+
+
 
             var exerciseToPatch = mapper.Map<ExerciceCreationDto>(exercise);
 

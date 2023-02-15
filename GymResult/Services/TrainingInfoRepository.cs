@@ -21,6 +21,7 @@ namespace GymResult.Services
             var training = await GetTrainingAsync(trainingId, false);
             if (training != null)
             {
+                exercise.TrainingId = trainingId;
                 training.Exercies.Add(exercise);
 
             }
@@ -40,7 +41,7 @@ namespace GymResult.Services
 
         public async Task<IEnumerable<Exercise>> GetExercisesForTraingAsync(int trainingId)
         {
-            return await TrainingInfoContext.Exercises.Where(c => c.TrainingId == trainingId).ToListAsync();
+           return await TrainingInfoContext.Exercises.Where(c => c.TrainingId == trainingId).ToListAsync();
         }
 
         public async Task<IEnumerable<Training>> GetTraingsAsync()
