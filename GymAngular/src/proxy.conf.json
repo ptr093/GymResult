@@ -1,0 +1,7 @@
+{
+    "/api/traings": {
+    "target": "https://localhost:7147",
+    "secure": false
+    }
+    
+    }

@@ -1,0 +1,90 @@
+<div class="card">
+    <div class="card-header">
+     
+    </div>
+  
+    <div class="card-body">
+      <form novalidate
+            (ngSubmit)="saveExercise()"
+            [formGroup]="workoutForm">
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                       for="Id">Lokalizacja</label>
+                <div class="col-md-8">
+                  <input class="form-control"
+                         id="Id"
+                         type="text"
+                         placeholder="Lokalizacja"
+                         formControlName="location"
+                       
+                         />
+                       
+                </div>
+              </div>
+  
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="exerciseId">Opis</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="Id"
+                   type="text"
+                   placeholder="opis"
+                   formControlName="description"
+       
+                   />
+        
+          </div>
+          <div class="form-group row mb-2">
+            <label class="col-md-2 col-form-label"
+                   for="exerciseId">Data</label>
+            <div class="col-md-8">
+              <input class="form-control"
+                     id="Id"
+                     type="date"
+                     placeholder="data"
+                     formControlName="date"
+         
+                     />
+  
+                     
+                    
+            </div>
+            </div>
+
+
+
+        </div>
+  
+       
+      
+       
+        
+  
+        <div class="form-group row mb-2">
+          <div class="offset-md-2 col-md-4">
+            <button class="btn btn-primary mr-3"
+                    style="width:80px;"
+                    type="submit"
+                   
+                    [disabled]="!workoutForm.valid">
+              Zapisz
+            </button>
+            <button class="btn btn-outline-secondary mr-3"
+                    style="width:80px;"
+                    type="button"
+                    title="Anuluj edytowanie"
+                    [routerLink]="['/workout']">
+              Anuluj
+            </button>
+   
+          </div>
+        </div>
+      </form>
+    </div>
+  
+    <div class="alert alert-danger"
+         *ngIf="errorMessage">{{errorMessage}}
+    </div>
+  </div>

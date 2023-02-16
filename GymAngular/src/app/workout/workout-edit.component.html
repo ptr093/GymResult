@@ -1,0 +1,101 @@
+<div class="card">
+    <div class="card-header">
+      {{pageTitle}}
+    </div>
+  
+    <div class="card-body">
+      <form novalidate
+            (ngSubmit)="saveExercise()"
+            [formGroup]="exerciseForm">
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                       for="exerciseId">Cwiczenie</label>
+                <div class="col-md-8">
+                  <input class="form-control"
+                         id="exerciseId"
+                         type="text"
+                         placeholder="Cwiczenie (wymagane pole)"
+                         formControlName="category"
+                         [ngClass]="{'is-invalid': displayMessage['category']  }"
+                         />
+                         <span class="invalid-feedback">
+                          {{displayMessage['category']}}
+                        </span>
+                </div>
+              </div>
+  
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="exerciseId">Ciężar</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="exerciseId"
+                   type="number"
+                   placeholder="Ciężar (wymagane pole)"
+                   formControlName="weight"
+                   [ngClass]="{'is-invalid': displayMessage['weight']  }"
+                   />
+                   <span class="invalid-feedback">
+                    {{displayMessage['weight']}}
+                  </span>
+          </div>
+        </div>
+  
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="exerciseId">Seria</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="exerciseId"
+                   type="number"
+                   placeholder="seria (wymagane pole)"
+                   formControlName="series"
+                   [ngClass]="{'is-invalid': displayMessage['series']  }"
+                    />
+                    <span class="invalid-feedback">
+                      {{displayMessage['series']}}
+                    </span>
+           
+          </div>
+        </div>
+  
+       
+  
+        
+  
+       
+        
+  
+        <div class="form-group row mb-2">
+          <div class="offset-md-2 col-md-4">
+            <button class="btn btn-primary mr-3"
+                    style="width:80px;"
+                    type="submit"
+                   
+                    [disabled]="!exerciseForm.valid">
+              Save
+            </button>
+            <button class="btn btn-outline-secondary mr-3"
+                    style="width:80px;"
+                    type="button"
+                    title="Anuluj edytowanie"
+                    [routerLink]="['/workout']">
+              Anuluj
+            </button>
+            <button class="btn btn-outline-warning"
+                    style="width:80px"
+                    type="button"
+                    title="Usuń trening"
+                    (click)="deleteExercise()">
+              Delete
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  
+    <div class="alert alert-danger"
+         *ngIf="errorMessage">{{errorMessage}}
+    </div>
+  </div>
