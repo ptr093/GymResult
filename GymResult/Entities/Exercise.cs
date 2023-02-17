@@ -12,6 +12,8 @@ namespace GymResult.Entities
         public double Weight { get; set; }
         public int Series { get; set; }
 
+        public int Reps { get; set; }
+
         [ForeignKey("TrainingId")]
         public Training? Training { get; set; }
         public int TrainingId { get; set; }

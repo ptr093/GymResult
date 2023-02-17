@@ -8,7 +8,7 @@ namespace GymResult.Services
 
 
         Task<IEnumerable<Training>> GetTraingsAsync();
-        Task<Training?> GetTrainingAsync(int trainingId, bool includeExercises);
+        Task<Training> GetTrainingAsync(int trainingId, bool includeExercises);
         Task<IEnumerable<Exercise>> GetExercisesForTraingAsync(int trainingId);
         Task<Exercise?> GetTrainingForExerciseAsync(int trainingId, int exerciseId);
 
@@ -21,5 +21,7 @@ namespace GymResult.Services
         Task AddTraining(Training training);
 
         void DeleteExercise(Exercise exercise);
+
+        void DeleteTraining(Training training);
     }
 }

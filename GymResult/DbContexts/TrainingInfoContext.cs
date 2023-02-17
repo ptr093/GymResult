@@ -51,7 +51,8 @@ namespace GymResult.DbContexts
              TrainingId= 1,
              Weight= 95.50,
              Category ="Klatka",
-             Series=1
+             Series=1,
+             Reps=5
          },
          new Exercise()
          {
@@ -59,7 +60,8 @@ namespace GymResult.DbContexts
              TrainingId = 1,
              Weight = 95.50,
              Category = "Klatka",
-             Series = 2
+             Series = 2,
+             Reps=5
          },
          new Exercise()
          {
@@ -67,7 +69,8 @@ namespace GymResult.DbContexts
              TrainingId = 1,
              Weight = 95.50,
              Category = "Klatka",
-             Series = 3
+             Series = 3,
+             Reps=5
          },
 
          new Exercise()
@@ -76,7 +79,8 @@ namespace GymResult.DbContexts
             TrainingId = 2,
             Weight = 95.50,
             Category = "Klatka",
-            Series = 1
+            Series = 1,
+            Reps=5
          },
          new Exercise()
          {
@@ -84,7 +88,8 @@ namespace GymResult.DbContexts
              TrainingId = 2,
              Weight = 95.50,
              Category = "Klatka",
-             Series = 2
+             Series = 2,
+             Reps=5
          },
          new Exercise()
          {
@@ -92,7 +97,8 @@ namespace GymResult.DbContexts
              TrainingId = 3,
              Weight = 95.50,
              Category = "Klatka",
-             Series = 1
+             Series = 1,
+             Reps=5
          }
 
 

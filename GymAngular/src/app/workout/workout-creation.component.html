@@ -1,90 +1,174 @@
 <div class="card">
-    <div class="card-header">
-     
-    </div>
-  
-    <div class="card-body">
-      <form novalidate
-            (ngSubmit)="saveExercise()"
-            [formGroup]="workoutForm">
+  <div class="card-header">
+   
+  </div>
 
-            <div class="form-group row mb-2">
-                <label class="col-md-2 col-form-label"
-                       for="Id">Lokalizacja</label>
-                <div class="col-md-8">
-                  <input class="form-control"
-                         id="Id"
-                         type="text"
-                         placeholder="Lokalizacja"
-                         formControlName="location"
-                       
-                         />
-                       
-                </div>
+  <div class="card-body">
+    <form novalidate
+          (ngSubmit)="saveExercise()"
+          [formGroup]="workoutForm">
+
+          <div class="form-group row mb-2">
+              <label class="col-md-2 col-form-label"
+                     for="Id">Lokalizacja</label>
+              <div class="col-md-8">
+                <input class="form-control"
+                       id="Id"
+                       type="text"
+                       placeholder="Lokalizacja"
+                       formControlName="location"
+                     
+                       />
+                     
               </div>
-  
+            </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="exerciseId">Opis</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="Id"
+                 type="text"
+                 placeholder="opis"
+                 formControlName="description"
+     
+                 />
+      
+        </div>
+        </div>
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label"
-                 for="exerciseId">Opis</label>
+                 for="exerciseId">Data</label>
           <div class="col-md-8">
             <input class="form-control"
                    id="Id"
-                   type="text"
-                   placeholder="opis"
-                   formControlName="description"
+                   type="date"
+                   placeholder="data"
+                   formControlName="date"
        
                    />
-        
-          </div>
-          <div class="form-group row mb-2">
-            <label class="col-md-2 col-form-label"
-                   for="exerciseId">Data</label>
-            <div class="col-md-8">
-              <input class="form-control"
-                     id="Id"
-                     type="date"
-                     placeholder="data"
-                     formControlName="date"
-         
-                     />
-  
-                     
-                    
-            </div>
-            </div>
 
-
-
-        </div>
-  
-       
-      
-       
-        
-  
-        <div class="form-group row mb-2">
-          <div class="offset-md-2 col-md-4">
-            <button class="btn btn-primary mr-3"
-                    style="width:80px;"
-                    type="submit"
                    
-                    [disabled]="!workoutForm.valid">
-              Zapisz
-            </button>
-            <button class="btn btn-outline-secondary mr-3"
-                    style="width:80px;"
-                    type="button"
-                    title="Anuluj edytowanie"
-                    [routerLink]="['/workout']">
-              Anuluj
-            </button>
-   
+                  
           </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 mb-2">
+          <button class="btn btn-outline-secondary btn-sm"
+                  type="button"
+                  title="Add a search tag"
+                  (click)="addExercise()">Dodaj treningi
+          </button>
         </div>
-      </form>
-    </div>
-  
-    <div class="alert alert-danger"
-         *ngIf="errorMessage">{{errorMessage}}
-    </div>
+      </div>
+    
+      <div formArrayName="exerciseList">
+        <div class="form-group row mb-2"
+        *ngFor="let exercise of exerciseList.controls; let i=index">
+          <div class="col-md-12">
+            <div [formGroupName] ="i">
+
+
+            
+             
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                      attr.for="{{'categoryId' + i}}">Cwiczenie</label>
+                <div class="col-md-8">
+                  <input class="form-control"
+                        id="{{'categoryId' +i }}"
+                        type="text"
+                        placeholder="rodzaj czwiczenia"
+                      
+                        formControlName="category">
+                </div>
+               
+              </div>
+
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                      attr.for="{{'weightId' + i}}">Ciężar</label>
+                <div class="col-md-8">
+                  <input class="form-control"
+                        id="{{'weightId' +i }}"
+                        type="number"
+                        placeholder="weight"
+                      
+                        formControlName="weight">
+                </div>
+               
+              </div>
+
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                      attr.for="{{'seiresId' + i}}">Seria</label>
+                <div class="col-md-8">
+                  <input class="form-control"
+                        id="{{'seiresId' +i }}"
+                        type="number"
+                        placeholder="seria"
+                      
+                        formControlName="series">
+                </div>
+               
+              </div>
+
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                      attr.for="{{'repsId' + i}}">Reps</label>
+                <div class="col-md-8">
+                  <input class="form-control"
+                        id="{{'repsId' +i }}"
+                        type="number"
+                        placeholder="Powtórzenia"
+                      
+                        formControlName="reps">
+                </div>
+               
+              </div>
+
+            </div>
+
+          <button class="col-md-1 btn btn-outline-warning btn-sm"
+                  type="button"
+                  title="Delete this search tag"
+                  (click)="deleteExercise(i)">Usuń treningi
+          </button>
+        </div>
+      </div>
+
+    
+      
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  style="width:80px;"
+                  type="submit"
+                 
+                  [disabled]="!workoutForm.valid">
+            Zapisz
+          </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  style="width:80px;"
+                  type="button"
+                  title="Anuluj edytowanie"
+                  [routerLink]="['/workout']">
+            Anuluj
+          </button>
+ 
+        </div>
+      </div>
+      </div>
+    </form>
   </div>
+  <br>Dirty: {{ workoutForm.dirty }}
+  <br>Touched: {{ workoutForm.touched }}
+  <br>Valid: {{ workoutForm.valid }}
+  <br>Value: {{ workoutForm.value | json }}
+  <div class="alert alert-danger"
+       *ngIf="errorMessage">{{errorMessage}}
+  </div>
+</div>

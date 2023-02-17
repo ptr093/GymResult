@@ -4,5 +4,6 @@ export interface Exerceise{
  category:'',
 weight:number,
 series:number,
+reps: number,
 trainingId:number
 }

@@ -81,6 +81,10 @@ export class WorkoutEditComponent implements  OnInit, OnDestroy, AfterViewInit  
       weight: {
         required: 'Podaj ciężar',
         range:    "Podaj wagę ciężaru"
+      },
+      reps:{
+        required: 'Podaj ciężar',
+        range:    "Podaj wagę ciężaru"
       }
     };
 
@@ -103,7 +107,9 @@ export class WorkoutEditComponent implements  OnInit, OnDestroy, AfterViewInit  
       weight: [null, Validators.required
       ],
       series: [null, Validators.required
-               ]
+               ],
+       reps: [null, Validators.required
+              ]
       
     });
 
@@ -170,6 +176,7 @@ export class WorkoutEditComponent implements  OnInit, OnDestroy, AfterViewInit  
       category: this.exercise.category,
       weight: this.exercise.weight,
       series: this.exercise.series,
+      reps: this.exercise.reps
    
     });
   
@@ -180,7 +187,7 @@ export class WorkoutEditComponent implements  OnInit, OnDestroy, AfterViewInit  
       // Don't delete, it was never saved.
       this.onSaveComplete();
     } else {
-      if (confirm(`Really delete the product: ${this.exercise.category}?`)) {
+      if (confirm('Czy napewno chcesz usunać to ćwiczenie?')) {
         this.workoutService.deleteWorkout(this.exercise.trainingId,this.exercise.id)
           .subscribe({
             next: () => this.onSaveComplete(),
@@ -195,7 +202,6 @@ export class WorkoutEditComponent implements  OnInit, OnDestroy, AfterViewInit  
       if (this.exerciseForm.dirty) {
         const p = { ...this.exercise, ...this.exerciseForm.value };
        
-        console.log(p.idExercise, p.category, p.series);
         
         if ( this.exercise=== undefined) {
           p.trainingId =this.workoutId
@@ -216,7 +222,7 @@ export class WorkoutEditComponent implements  OnInit, OnDestroy, AfterViewInit  
         this.onSaveComplete();
       }
     } else {
-      this.errorMessage = 'Please correct the validation errors.';
+      this.errorMessage = 'Popraw błędy walidacyjne';
     }
   }
 

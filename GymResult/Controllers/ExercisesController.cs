@@ -134,6 +134,7 @@ namespace GymResult.Controllers
                 return NotFound();
             }
 
+         
             trainingInfoRepository.DeleteExercise(exercise);
             await trainingInfoRepository.SaveChangesAsync();
 

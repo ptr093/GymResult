@@ -84,17 +84,33 @@ export class WorkoutService {
       );
   }
 
-  createWorkout(exercise: Exerceise): Observable<Workout> {
+  createWorkout(workout: Workout): Observable<Workout> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    exercise.id = 0;
-    let url = `https://localhost:7147/api/traings/${exercise.trainingId}`;
-    url +='/exerceises'
-    return this.http.post<Workout>(url, exercise, { headers })
+    workout.id = 0;
+    let url = 'https://localhost:7147/withExercise';
+
+    return this.http.post<Workout>(url, workout, { headers })
       .pipe(
         tap(data => console.log('createWorkout: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
+
+
+
+  deleteWorkoutWithExercise(idWorkout: number): Observable<{}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+   let url = `https://localhost:7147/api/traings?id=${idWorkout}`;
+
+    
+    return this.http.delete<Workout>(url, { headers })
+      .pipe(
+        tap(data => console.log('deleteWorkoutWithExercise: ' + idWorkout)),
+        catchError(this.handleError)
+      );
+  }
+
 
   deleteWorkout(idWorkout: number, idExercise: number): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -134,6 +150,13 @@ export class WorkoutService {
     "op": "replace",
     "from": "string",
     "value": exercise.category
+  },
+  {
+    "operationType": 0,
+    "path": "/reps",
+    "op": "replace",
+    "from": "string",
+    "value": exercise.reps
   }
 
 ];
@@ -170,7 +193,19 @@ export class WorkoutService {
       id :0,
       date : new Date(),
       description :'',
-      location :''
+      location :'',
+      Exercies:[{
+        id :0,
+ category:'',
+weight:0,
+series:0,
+reps: 0,
+trainingId:0
+
+
+      }
+       
+      ]
     };
   }
 
@@ -182,7 +217,8 @@ export class WorkoutService {
       category : '',
      weight : 0,
       series:0,
-     trainingId:0
+     trainingId:0,
+     reps: 0
     };
   }
 }

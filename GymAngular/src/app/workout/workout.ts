@@ -1,3 +1,5 @@
+import { Exerceise } from "./exercise"
+
 export interface Workout {
 
 
@@ -5,6 +7,7 @@ export interface Workout {
     date : Date,
     description :string,
     location :string
+    Exercies: Exerceise[] 
 
   }
   

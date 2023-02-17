@@ -38,6 +38,10 @@ namespace GymResult.Services
             TrainingInfoContext.Exercises.Remove(exercise);
         }
 
+        public void DeleteTraining(Training training)
+        {
+            TrainingInfoContext.Trainings.Remove(training);
+        }
 
         public async Task<IEnumerable<Exercise>> GetExercisesForTraingAsync(int trainingId)
         {

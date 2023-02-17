@@ -20,7 +20,7 @@
               <th>Lokalizacja</th>
               <th>Data</th>
               <th>Opis</th>
-              <th></th>
+              <th>Usuń</th>
             </tr>
           </thead>
           <tbody>
@@ -36,6 +36,15 @@
                         [routerLink]="['/workout', workout.id, 'workoutDetails']">
                   Szczegóły
                 </button>
+              </td>
+              <td>
+                <button class="btn btn-outline-warning"
+                    style="width:80px"
+                    type="button"
+                    title="Usuń trening"
+                    (click)="deleteWorkoutWithExercise(workout.id)">
+              Usuń
+            </button>
               </td>
             </tr>
           </tbody>

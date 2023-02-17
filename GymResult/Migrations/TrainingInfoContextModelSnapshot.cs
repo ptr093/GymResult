@@ -27,6 +27,9 @@ namespace GymResult.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Reps")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Series")
                         .HasColumnType("INTEGER");
 
@@ -47,6 +50,7 @@ namespace GymResult.Migrations
                         {
                             Id = 1,
                             Category = "Klatka",
+                            Reps = 0,
                             Series = 1,
                             TrainingId = 1,
                             Weight = 95.5
@@ -55,6 +59,7 @@ namespace GymResult.Migrations
                         {
                             Id = 2,
                             Category = "Klatka",
+                            Reps = 0,
                             Series = 2,
                             TrainingId = 1,
                             Weight = 95.5
@@ -63,6 +68,7 @@ namespace GymResult.Migrations
                         {
                             Id = 3,
                             Category = "Klatka",
+                            Reps = 0,
                             Series = 3,
                             TrainingId = 1,
                             Weight = 95.5
@@ -71,6 +77,7 @@ namespace GymResult.Migrations
                         {
                             Id = 4,
                             Category = "Klatka",
+                            Reps = 0,
                             Series = 1,
                             TrainingId = 2,
                             Weight = 95.5
@@ -79,6 +86,7 @@ namespace GymResult.Migrations
                         {
                             Id = 5,
                             Category = "Klatka",
+                            Reps = 0,
                             Series = 2,
                             TrainingId = 2,
                             Weight = 95.5
@@ -87,6 +95,7 @@ namespace GymResult.Migrations
                         {
                             Id = 6,
                             Category = "Klatka",
+                            Reps = 0,
                             Series = 1,
                             TrainingId = 3,
                             Weight = 95.5
@@ -118,68 +127,35 @@ namespace GymResult.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2023, 2, 9, 10, 19, 58, 325, DateTimeKind.Local).AddTicks(2915),
+                            Date = new DateTime(2023, 2, 16, 10, 32, 17, 728, DateTimeKind.Local).AddTicks(1791),
                             Description = "Pozytywny",
                             Location = "Kraków"
                         },
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2023, 2, 9, 10, 19, 58, 325, DateTimeKind.Local).AddTicks(2918),
+                            Date = new DateTime(2023, 2, 16, 10, 32, 17, 728, DateTimeKind.Local).AddTicks(1795),
                             Description = "Pozytywny",
                             Location = "Kraków"
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2023, 2, 9, 10, 19, 58, 325, DateTimeKind.Local).AddTicks(2921),
+                            Date = new DateTime(2023, 2, 16, 10, 32, 17, 728, DateTimeKind.Local).AddTicks(1797),
                             Description = "Lekki ból",
                             Location = "Sandomierz"
                         });
                 });
 
-            modelBuilder.Entity("GymResult.Models.ExercicesDto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Series")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("TrainingId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<double>("Weight")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TrainingId");
-
-                    b.ToTable("ExercicesDto");
-                });
-
             modelBuilder.Entity("GymResult.Entities.Exercise", b =>
                 {
                     b.HasOne("GymResult.Entities.Training", "Training")
-                        .WithMany()
+                        .WithMany("Exercies")
                         .HasForeignKey("TrainingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Training");
-                });
-
-            modelBuilder.Entity("GymResult.Models.ExercicesDto", b =>
-                {
-                    b.HasOne("GymResult.Entities.Training", null)
-                        .WithMany("Exercies")
-                        .HasForeignKey("TrainingId");
                 });
 
             modelBuilder.Entity("GymResult.Entities.Training", b =>

@@ -101,5 +101,35 @@ namespace GymResult.Controllers
 
             return Ok();
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteWorkout(int id)
+        {
+            var workout = trainingInfoRepository.GetTrainingAsync(id, false);
+            if (workout ==null)
+            {
+                logger.LogInformation($"Exercise with id {id} wasn't found when accessing trainings.");
+                return NotFound();
+            }
+        
+            var exercises = await trainingInfoRepository.GetExercisesForTraingAsync(id);
+
+            //delete all exercises
+            if (exercises != null)
+            {
+                foreach (var item in exercises)
+                {
+                    trainingInfoRepository.DeleteExercise(item);
+                }
+            }
+     
+            trainingInfoRepository.DeleteTraining(workout.Result);
+
+            await trainingInfoRepository.SaveChangesAsync();
+
+
+
+            return NoContent();
+        }
     }
 }

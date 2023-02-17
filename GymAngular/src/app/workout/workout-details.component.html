@@ -51,8 +51,9 @@ margin-right: auto;">
                   <th>Cwiczenie</th>
                   <th>Ciężar</th>
                   <th>Seria</th>
+                  <th>Powtórzenia</th>
                   <th>Edycja</th>
-              
+                  
                 </tr>
               </thead>
               <tbody>
@@ -68,6 +69,7 @@ margin-right: auto;">
                   <td *ngIf="item.category ===items.category"  >{{ items.category }}</td>
                   <td   *ngIf="item.category ===items.category" >{{ items.weight}}</td>
                   <td  *ngIf="item.category ===items.category" >{{ items.series }}</td>
+                  <td  *ngIf="item.category ===items.category" >{{ items.reps }}</td>
                   <td  *ngIf="item.category ===items.category" ><button class="btn btn-outline-primary"
                     style="width:80px"
                     [routerLink]="['/workout', items.trainingId,  'workoutEdit',items.id]">
