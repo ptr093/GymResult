@@ -10,8 +10,16 @@ import { RouterModule } from '@angular/router';
 import { WorkoutDetailsComponent } from './workout/workout-details.component';
 import { WorkoutEditComponent } from './workout/workout-edit.component';
 import { WorkoutCreationComponent } from './workout/workout-creation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
+import { MatTableModule } from '@angular/material/table';
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatPaginatorModule} from '@angular/material/paginator'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +35,15 @@ import { WorkoutCreationComponent } from './workout/workout-creation.component';
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
+    BrowserAnimationsModule,
+    MatProgressBarModule,
+    MatExpansionModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatCardModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
     RouterModule.forRoot([
       { path: 'workout', component: WorkoutComponent },
       { path: '', redirectTo: 'workout', pathMatch: 'full' },
@@ -54,6 +71,7 @@ import { WorkoutCreationComponent } from './workout/workout-creation.component';
       }
       
     ]),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

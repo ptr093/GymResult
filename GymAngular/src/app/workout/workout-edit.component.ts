@@ -205,7 +205,9 @@ export class WorkoutEditComponent implements  OnInit, OnDestroy, AfterViewInit  
         
         if ( this.exercise=== undefined) {
           p.trainingId =this.workoutId
-          this.workoutService.createWorkout(p)
+
+          
+          this.workoutService.CreateExercise(p)
             .subscribe({
               next: () => this.onSaveComplete(),
               error: err => this.errorMessage = err

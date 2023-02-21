@@ -89,12 +89,27 @@ export class WorkoutService {
     workout.id = 0;
     let url = 'https://localhost:7147/withExercise';
 
+    console.log('JestemTutaj?')
     return this.http.post<Workout>(url, workout, { headers })
       .pipe(
         tap(data => console.log('createWorkout: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
+
+  CreateExercise(exercise: Exerceise): Observable<Exerceise> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    exercise.id = 0;
+    let url = `https://localhost:7147/api/traings/${exercise.trainingId}`;
+    url+='/exerceises'
+    console.log('JestemTutaj?')
+    return this.http.post<Exerceise>(url, exercise, { headers })
+      .pipe(
+        tap(data => console.log('createWorkout: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
+
 
 
 

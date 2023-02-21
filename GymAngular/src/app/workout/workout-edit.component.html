@@ -8,78 +8,99 @@
             (ngSubmit)="saveExercise()"
             [formGroup]="exerciseForm">
 
-            <div class="form-group row mb-2">
+        
+  
+              <div class="form-group row mb-2">
                 <label class="col-md-2 col-form-label"
-                       for="exerciseId">Cwiczenie</label>
+                   for="{categoryId}">Cwiczenie</label>
                 <div class="col-md-8">
-                  <input class="form-control"
-                         id="exerciseId"
-                         type="text"
-                         placeholder="Cwiczenie (wymagane pole)"
-                         formControlName="category"
-                         [ngClass]="{'is-invalid': displayMessage['category']  }"
-                         />
-                         <span class="invalid-feedback">
-                          {{displayMessage['category']}}
-                        </span>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Kategoria</mat-label>
+                    <mat-icon matSuffix>model_training</mat-icon>
+                    <input matInput placeholder="Kategoria"
+                        id='categoryId'
+                        type="text"
+
+                        formControlName="category"
+                        [ngClass]="{'is-invalid':displayMessage ['category']  }"                    
+                       />
+                       <span class="invalid-feedback">
+                        {{displayMessage['category']}}
+                      </span>  
+                        </mat-form-field>
                 </div>
+               
               </div>
-  
-        <div class="form-group row mb-2">
-          <label class="col-md-2 col-form-label"
-                 for="exerciseId">Ciężar</label>
-          <div class="col-md-8">
-            <input class="form-control"
-                   id="exerciseId"
-                   type="number"
-                   placeholder="Ciężar (wymagane pole)"
-                   formControlName="weight"
-                   [ngClass]="{'is-invalid': displayMessage['weight']  }"
-                   />
-                   <span class="invalid-feedback">
-                    {{displayMessage['weight']}}
-                  </span>
-          </div>
-        </div>
-  
-        <div class="form-group row mb-2">
-          <label class="col-md-2 col-form-label"
-                 for="exerciseId">Seria</label>
-          <div class="col-md-8">
-            <input class="form-control"
-                   id="exerciseId"
-                   type="number"
-                   placeholder="seria (wymagane pole)"
-                   formControlName="series"
-                   [ngClass]="{'is-invalid': displayMessage['series']  }"
-                    />
-                    <span class="invalid-feedback">
-                      {{displayMessage['series']}}
-                    </span>
-           
-          </div>
-        </div>
 
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                     for='weightId'>Ciężar</label>
+                <div class="col-md-8">
+                    <mat-form-field appearance="outline">
+                    <mat-label>Ciężar</mat-label>
+                    <mat-icon matSuffix>fitness_center</mat-icon>
+                  <input matInput placeholder="Ciężar" 
+                        id='weightId'
+                        type="number"
+                    
+                        formControlName="weight"
+                        [ngClass]="{'is-invalid': displayMessage['weight']}"                    
+                       />
+                       <span class="invalid-feedback">
+                        {{displayMessage['weight']}}
+                      </span>  
+                  </mat-form-field>
+                </div>
+               
+              </div>
 
-        <div class="form-group row mb-2">
-          <label class="col-md-2 col-form-label"
-                 for="exerciseId">Seria</label>
-          <div class="col-md-8">
-            <input class="form-control"
-                   id="exerciseId"
-                   type="number"
-                   placeholder="seria (wymagane pole)"
-                   formControlName="reps"
-                   [ngClass]="{'is-invalid': displayMessage['reps']  }"
-                    />
-                    <span class="invalid-feedback">
-                      {{displayMessage['reps']}}
-                    </span>
-           
-          </div>
-        </div>
-  
-       
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                     for='seiresId'>Seria</label>
+                <div class="col-md-8">
+                  
+                  <mat-form-field appearance="outline">
+                    <mat-label>Seria</mat-label>
+                    <mat-icon matSuffix>location_on</mat-icon>
+                  <input matInput placeholder="Seria" 
+                        id='seiresId'
+                        type="number"
+                        placeholder="seria"
+                      
+                        formControlName="series"
+                        [ngClass]="{'is-invalid': displayMessage['series']  }"                    
+                        />
+                        <span class="invalid-feedback">
+                         {{displayMessage['series']}}
+                       </span>  
+                        </mat-form-field>
+                </div>
+               
+              </div>
+
+              <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label"
+                      for='repsId'>Reps</label>
+                <div class="col-md-8">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Powtórzenia</mat-label>
+                    <mat-icon matSuffix>location_on</mat-icon>
+                  <input matInput placeholder="Powtórzenia"
+                        id='repsId' 
+                        type="number"
+                    
+                      
+                        formControlName="reps"
+                        [ngClass]="{'is-invalid': displayMessage['reps']  }"                    
+                       >
+                       <span class="invalid-feedback">
+                        {{displayMessage['reps']}}
+                      </span>  
+                       </mat-form-field> 
+                </div>
+               
+              </div>
   
         
   
@@ -88,26 +109,30 @@
   
         <div class="form-group row mb-2">
           <div class="offset-md-2 col-md-4">
-            <button class="btn btn-primary mr-3"
-                    style="width:80px;"
+            <button mat-button 
+                   
                     type="submit"
                    
                     [disabled]="!exerciseForm.valid">
+                    <mat-icon>save</mat-icon>
               Save
             </button>
-            <button class="btn btn-outline-secondary mr-3"
-                    style="width:80px;"
+            <button mat-button 
+                    
                     type="button"
-                    title="Anuluj edytowanie"
+                 
                     [routerLink]="['/workout']">
+                    
+                    <mat-icon>cancel</mat-icon>
+                    
               Anuluj
             </button>
-            <button class="btn btn-outline-warning"
-                    style="width:80px"
+            <button mat-button
                     type="button"
                     title="Usuń trening"
                     (click)="deleteExercise()">
-              Usuń
+                    <mat-icon>delete</mat-icon>
+                    Usuń
             </button>
           </div>
         </div>

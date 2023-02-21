@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { from, Subscription } from 'rxjs';
+import { distinct, from, Subscription } from 'rxjs';
 import { WorkoutService } from '../workout.service';
 import { Exerceise } from './exercise';
 
@@ -36,6 +36,7 @@ export class WorkoutDetailsComponent {
       const id = +param;
       this.getExercise(id)
       this.trainingId =id;
+     
     }
 
 
@@ -47,6 +48,7 @@ export class WorkoutDetailsComponent {
     this.workoutService.getExercises(id).subscribe({
       next: exercise => this.exercise = exercise.sort((a,b) => a.category > b.category ? 1 : -1),
       error: err => this.errorMessage = err
+   
     });
 
   }

@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+mat-form-field {
+width: 100%;
+}
+.example-header-image {
+    background-image: url('src/assets/images/hantel.png');
+    background-size: cover;
+  }
+example-card {
+    max-width: 800px;
+  }
+  mat-card-image {
+    max-height: 400px;
+  }
+
+  table td,
+table th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  
+}
+
+thead th {
+  color: #fff;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

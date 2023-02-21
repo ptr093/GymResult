@@ -68,7 +68,7 @@ namespace GymResult.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<IEnumerable<ExercicesDto>>> CreatePointOfIntrest(int trainingId, ExerciceCreationDto exersiseCreation)
+        public async Task<ActionResult<IEnumerable<ExercicesDto>>> CreateExercise(int trainingId, ExerciceCreationDto exersiseCreation)
         {
             if (!await trainingInfoRepository.TrainingExistAsync(trainingId))
             {

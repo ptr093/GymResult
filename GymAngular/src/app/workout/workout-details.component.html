@@ -1,49 +1,57 @@
 <div class="card">
-    <div class="card-header"
-         *ngIf="exercise">
-      {{pageTitle}}
-    </div>
+ 
   
 
-<div style=" margin-left: auto;
-margin-right: auto;">
-  <button class="btn btn-dark"
-  style="width:200px"
-  [routerLink]="['/workout', trainingId,  'workoutEdit',0]">
-      Dodaj Ćwiczenie
-</button>
 
-</div>
 
     <div class="card-body"
          *ngIf="exercise">
   
-    
-  
+         
         <div class="table-responsive">
          
           <div *ngFor="let item of exercise; let index = index">
-           
+            
+           <mat-expansion-panel *ngIf=" exercise && exercise.length && !exercise[index-1] || item.category !== exercise[index-1].category">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+             {{item.category}}
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+ 
           
             <div class="container">
               <div class="row">
                 <div class="col-md-3">
 
-            <div class="col-md-6 col-sm-12"
+            <div class="col-md-9 col-sm-12"
+            
             *ngIf=" exercise && exercise.length && !exercise[index-1] || item.category !== exercise[index-1].category">
-         <img class="center-block img-responsive"
-              [style.height.px]="250"
-              [style.margin.px]="2"
-              [style.width.px]="250"
+
+            <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>{{item.category}}</mat-card-title>
+              </mat-card-header>
+         <img mat-card-image 
+         
               [src]="getFile(item.category)"
              >
-            
+             <mat-card-footer>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </mat-card-footer>
+            </mat-card>
+       
        </div>
+
+
+
+       
        </div>
        <div class="col-sm">
-            <table class="table table-striped table-dark"
+            <table class="table table-striped mb-0"
                    *ngIf="exercise && exercise.length && !exercise[index-1] || item.category !== exercise[index-1].category">
-              <thead  >
+                   <thead style="background-color: #002d72;">
                 <tr>
                
                
@@ -70,11 +78,13 @@ margin-right: auto;">
                   <td   *ngIf="item.category ===items.category" >{{ items.weight}}</td>
                   <td  *ngIf="item.category ===items.category" >{{ items.series }}</td>
                   <td  *ngIf="item.category ===items.category" >{{ items.reps }}</td>
-                  <td  *ngIf="item.category ===items.category" ><button class="btn btn-outline-primary"
-                    style="width:80px"
+                  <td  *ngIf="item.category ===items.category" >
+                    <button mat-button
+                    
                     [routerLink]="['/workout', items.trainingId,  'workoutEdit',items.id]">
-              Edycja
-            </button></td>
+                    <mat-icon>edit</mat-icon>
+            </button>
+          </td>
        
               </tr>
               </tbody>
@@ -86,6 +96,24 @@ margin-right: auto;">
      
  
     </div>
+    </mat-expansion-panel>
+    
+    </div>
+
+ 
+
+
+  </div>
+  <div class="form-group row mb-1">
+  <div class="offset-md-5 col-md-12">
+    <button mat-flat-button color="primary"
+    [routerLink]="['/workout', trainingId,  'workoutEdit',0]">
+        Dodaj Ćwiczenie
+        <mat-icon>fitness_center</mat-icon>
+  </button>
+  </div>
+  </div>
+  
   
     <div class="alert alert-danger"
          *ngIf="errorMessage">{{errorMessage}}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { WorkoutService } from '../workout.service';
 import { Workout } from './workout';
@@ -8,14 +8,12 @@ import { Workout } from './workout';
   templateUrl: './workout.component.html',
   styleUrls: ['./workout.component.css']
 })
-export class WorkoutComponent implements OnInit {
+export class WorkoutComponent implements OnInit{
 
 
   pageTitle = 'Workout List';
 
   errorMessage = '';
-
-
 
 
   Workouts: Workout[] = [];
