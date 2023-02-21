@@ -73,15 +73,13 @@ export class WorkoutCreationComponent  implements OnInit,AfterViewInit   {
         Validators.maxLength(50)]],
       date: ['',Validators.required],
       description:'',
-       
-
       exerciseList:this.fb.array([this.buildExercise()]),
-     
     });
    
   }
 
   displayMessage: { [key: string ]: string } = {};
+  displayMessageExercise: { [key: string ]: string } = {};
   private validationMessages: { [key: string]: { [key: string]: string | any} };
   
   private genericValidator: GenericValidator;
@@ -95,11 +93,11 @@ export class WorkoutCreationComponent  implements OnInit,AfterViewInit   {
 
     // Merge the blur event observable with the valueChanges observable
     // so we only need to subscribe once.
-    merge(this.workoutForm.valueChanges, ...controlBlurs).pipe(
+    merge(this.exerciseList.valueChanges,this.workoutForm.valueChanges, ...controlBlurs).pipe(
       debounceTime(800)
     ).subscribe(value => {
+      this.displayMessageExercise = this.genericValidator.processMessages(this.exerciseList)
       this.displayMessage = this.genericValidator.processMessages(this.workoutForm)
-      
 
     });
   }
@@ -126,7 +124,9 @@ exercises!: Exerceise
 
 
   addExercise(): void {
+
     this.exerciseList.push(this.buildExercise());
+
   }
 
   deleteExercise(index: number): void {
@@ -155,7 +155,6 @@ exercises!: Exerceise
         };
         
 
-        // this.workoutClass.exerciseList =  this.exerciseList
         
     
         const p = { ...this.workout, ...this.workoutForm.value};

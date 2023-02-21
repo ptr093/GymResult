@@ -101,10 +101,10 @@
                         type="text"
 
                         formControlName="category"
-                        [ngClass]="{'is-invalid':displayMessage ['category']  }"                    
+                        [ngClass]="{'is-invalid':displayMessageExercise ['category']  }"                    
                        />
                        <span class="invalid-feedback">
-                        {{displayMessage['category']}}
+                        {{displayMessageExercise['category']}}
                       </span>  
                         </mat-form-field>
                 </div>
@@ -123,10 +123,10 @@
                         type="number"
                     
                         formControlName="weight"
-                        [ngClass]="{'is-invalid': displayMessage['weight']}"                    
+                        [ngClass]="{'is-invalid': displayMessageExercise['weight']}"                    
                        />
                        <span class="invalid-feedback">
-                        {{displayMessage['weight']}}
+                        {{displayMessageExercise['weight']}}
                       </span>  
                   </mat-form-field>
                 </div>
@@ -147,10 +147,10 @@
                         placeholder="seria"
                       
                         formControlName="series"
-                        [ngClass]="{'is-invalid': displayMessage['series']  }"                    
+                        [ngClass]="{'is-invalid': displayMessageExercise['series']  }"                    
                         />
                         <span class="invalid-feedback">
-                         {{displayMessage['series']}}
+                         {{displayMessageExercise['series']}}
                        </span>  
                         </mat-form-field>
                 </div>
@@ -170,10 +170,10 @@
                     
                       
                         formControlName="reps"
-                        [ngClass]="{'is-invalid': displayMessage['reps']  }"                    
+                        [ngClass]="{'is-invalid': displayMessageExercise['reps']  }"                    
                        >
                        <span class="invalid-feedback">
-                        {{displayMessage['reps']}}
+                        {{displayMessageExercise['reps']}}
                       </span>  
                        </mat-form-field> 
                 </div>
@@ -219,11 +219,11 @@
       </div>
     </form>
   </div>
-  <br>Dirty: {{ workoutForm.dirty }}
+  <!-- <br>Dirty: {{ workoutForm.dirty }}
   <br>Touched: {{ workoutForm.touched }}
   <br>Valid: {{ workoutForm.valid }}
   <br>Value: {{ workoutForm.value | json }}
-  <br>Valie: {{displayMessage['category']}}
+  <br>Valie: {{displayMessageExercise['category']}} -->
   <div class="alert alert-danger"
        *ngIf="errorMessage">{{errorMessage}}
   </div>

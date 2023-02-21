@@ -32,7 +32,7 @@ export class GenericValidator {
   // Structure
   // controlName1: 'Validation Message.',
   // controlName2: 'Validation Message.'
-  processMessages(container: FormGroup): { [key: string| number]: string } {
+  processMessages(container: FormGroup |any): { [key: string| number]: string } {
     let messages: { [x: string| number]: string; } = {};
     for (const controlKey in container?.controls) {
       if (container.controls.hasOwnProperty(controlKey)) {
